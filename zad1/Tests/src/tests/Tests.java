@@ -15,10 +15,10 @@ public class Tests {
         {
             String textToBeExported = "Ala ma kota";
             Exporter exporter = new TextExporter(textToBeExported);
-            Data exportedData = exporter.ExportData(); // nie wiem czy to jest dobrze przepisane 
+            Data exportedData = exporter.ExportData(); 
             String exportedText = exportedData.Text();
             
-            // Assert.AreEqual(textToBeExported, exportedText);
+            
             if(textToBeExported.equals(exportedText)){
                 System.out.println("TestExporter textToBeExported.equals(exportedText) nr 1 is equals");
             }

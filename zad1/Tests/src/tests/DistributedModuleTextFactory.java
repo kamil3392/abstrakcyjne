@@ -31,6 +31,5 @@ public class DistributedModuleTextFactory implements DistributedModuleFactory{
     public Importer CreateImporter() {
         return new TextImporter();
     }
-    
-    
+
 }

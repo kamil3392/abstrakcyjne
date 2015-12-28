@@ -17,8 +17,8 @@ public class TextExporter implements Exporter {
         this.data = new TextData(textToBeExported);
     }
     
-    
     public Data ExportData() {
+        
         if (data == null) {
             return new TextData("");
         }
@@ -27,7 +27,5 @@ public class TextExporter implements Exporter {
         data = null;
         return exportedData; 
     }
-    
-   
     
 }
