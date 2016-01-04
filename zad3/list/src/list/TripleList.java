@@ -1,17 +1,7 @@
-/*
- * To change this license header, choose License Headers in Project Properties.
- * To change this template file, choose Tools | Templates
- * and open the template in the editor.
- */
 package list;
-
-/**
- *
- * @author Kamil
- */
 import java.util.Iterator;
 
-public class TripleList <T> implements Iterable<TripleList<T>> {
+public class TripleList <T> implements Iterable<TripleList<T>>{
     
     private T value;
     private TripleList<T> prev;
@@ -19,7 +9,7 @@ public class TripleList <T> implements Iterable<TripleList<T>> {
     private TripleList<T> middle; 
     private TripleList<T> triplelist;
     
-    public TripleList() {
+    public TripleList(){
         
         this.prev = null;
         this.next = null;
@@ -28,75 +18,99 @@ public class TripleList <T> implements Iterable<TripleList<T>> {
         
     }
     
-    //Gettery
-    public TripleList(T value) {
+    public TripleList(T value){
+        
         this();
         this.value = value;
         
     }
-       public T getValue() {
+    
+    public T getValue(){
+        
         return value;
+        
     }
     
-    public TripleList<T> getNext() {
+    public TripleList<T> getNext(){
+        
         return next;
+        
     }
     
-    public TripleList<T> getPrev() {
+    public TripleList<T> getPrev(){
+        
         return prev;
+        
     }
     
-    public TripleList<T> getMiddle() {
+    public TripleList<T> getMiddle(){
+        
         return middle;
+        
     }
     
     
-    public void add(T value) {
+    public void add(T value){
+        
         triplelist = new TripleList<>(value);
         
-        if (this.value == null) {
+        if(this.value == null){
+            
             this.value = value;
-        }
-        
-        else if (this.middle == null) {
+            
+        }else if(this.middle == null){
+            
             triplelist.middle = this;
             this.middle = triplelist;
-        }
-        else {
             
-            TripleList<T> temp = this;
-            while(temp.next != null) {
-                temp = temp.next;
-            }
-            if(temp.middle == null) {
-                triplelist.middle = temp;
-                temp.middle = triplelist;
-            }
-            else {
-                triplelist.prev = temp;
-                temp.next = triplelist;
+        }else{
+            
+            TripleList<T> TemporaryList = this;
+            
+            while(TemporaryList.next != null) {
+                
+                TemporaryList = TemporaryList.next;
+                
             }
             
+            if(TemporaryList.middle == null) {
+                
+                triplelist.middle = TemporaryList;
+                TemporaryList.middle = triplelist;
+                
+            }else{
+                
+                triplelist.prev = TemporaryList;
+                TemporaryList.next = triplelist;
+                
+            }
         }
     }
    
-    boolean  isNull(TripleList<T> list){ // czy lista pusta
+    boolean  isNull(TripleList<T> list){ 
+        
         return list == null;
+        
     }
     
-     public int Counting() {//zliczanie elementów
+    public int CountElement(){
         
         int count = 0;
         
         TripleList<T> list = this;
         
-        while(!isNull(list)) {
+        while(!isNull(list)){
             
-            if(list.value != null) {
+            if(list.value != null){
+                
                 count++;
+                
             }
-            if(list.middle != null) {
+            
+            if(list.middle != null){
+                
                 count++;
+                
             }
             
             list = list.next;
@@ -106,53 +120,61 @@ public class TripleList <T> implements Iterable<TripleList<T>> {
     }
     
     @Override
-    public Iterator<TripleList<T>> iterator() {
+    public Iterator<TripleList<T>> iterator(){
+        
         return new TripleListIterator(this);
+        
     }
     
-   
     
-    class TripleListIterator implements Iterator {
-        
+    class TripleListIterator implements Iterator{
         
         private TripleList<T> elem;
         private boolean middle;
         
-        public TripleListIterator(TripleList<T> pointer) {
+        public TripleListIterator(TripleList<T> pointer){
+            
             this.elem = pointer;
             this.middle = false;
-        }
-        
-
-        @Override
-        public TripleList<T> next() {
             
-            if(this.middle) { // jeśli środkowy element
+        }
+       
+        @Override
+        public TripleList<T> next(){
+            
+            if(this.middle){ 
                 
-                TripleList<T> temp = this.elem.middle;
+                TripleList<T> TemporaryList = this.elem.middle;
                 this.elem = this.elem.next; 
-                
                 this.middle = false;
                 
-                return temp;
+                return TemporaryList;
                 
-            }
-            else{
+            }else{
+                
                 this.middle = true;
                 return this.elem;
+                
             }
+        }
+        
+        public boolean isTrue(boolean middle,T elem){
+            
+            return this.middle==false && this.elem.value != null;
+            
+        }
+        
+        public boolean isTrue(boolean middle ,TripleList<T> elem){
+            
+            return this.middle && this.elem.middle != null && this.elem.middle.value != null;
+            
         }
         
         @Override
-        public boolean hasNext() {
+        public boolean hasNext(){
             
-            return (this.middle==false && this.elem.value != null ) //jeśli istnieje element różny od środkowego 
-                    || 
-                   (this.middle && this.elem.middle != null && this.elem.middle.value != null);
-                    // jeśli element środkowy istnieje
-        }
-        
+            return isTrue(this.middle,this.elem.value) || isTrue(this.middle,this.elem.middle.value);
+                                                  
+        }    
     }
-    
-   
 }
