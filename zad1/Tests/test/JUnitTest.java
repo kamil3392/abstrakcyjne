@@ -1,16 +1,5 @@
-/*
- * To change this license header, choose License Headers in Project Properties.
- * To change this template file, choose Tools | Templates
- * and open the template in the editor.
- */
-
 import junit.framework.Assert;
-import org.junit.After;
-import org.junit.AfterClass;
-import org.junit.Before;
-import org.junit.BeforeClass;
 import org.junit.Test;
-import static org.junit.Assert.*;
 import tests.Data;
 import tests.DistributedModuleFactory;
 import tests.DistributedModuleTextFactory;
@@ -20,14 +9,10 @@ import tests.TextData;
 import tests.TextExporter;
 import tests.TextImporter;
 
-/**
- *
- * @author Kamil
- */
 public class JUnitTest {
-    @Test
-    public void TestExporter()
-        {
+    
+        @Test
+        public void TestExporter(){
             String textToBeExported = "Ala ma kota";
             Exporter exporter = new TextExporter(textToBeExported);
             Data exportedData = exporter.ExportData();
@@ -39,9 +24,8 @@ public class JUnitTest {
             Assert.assertEquals(textToBeExported, exportedText);
         }
  
-    @Test
-        public void TestImporter()
-        {
+        @Test
+        public void TestImporter(){
             String textToBeImported = "Ala zgubila dolara";
             Data dataToSendToImporter = new TextData(textToBeImported);
             Importer importer = new TextImporter();
@@ -51,8 +35,7 @@ public class JUnitTest {
         }
  
         @Test
-        public void TestFactory()
-        {
+        public void TestFactory(){
             final String textToForFactory = "Ali kot zjadl dolara";
             DistributedModuleFactory factory = new DistributedModuleTextFactory(textToForFactory);
             Data dataFromFactory = factory.CreateData();
