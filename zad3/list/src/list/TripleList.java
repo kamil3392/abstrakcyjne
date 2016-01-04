@@ -49,7 +49,6 @@ public class TripleList <T> implements Iterable<TripleList<T>>{
         
     }
     
-    
     public void add(T value){
         
         triplelist = new TripleList<>(value);
