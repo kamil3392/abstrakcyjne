@@ -1,32 +1,32 @@
 package zadwlasne2;
 
-public class Queues {
+import java.util.Iterator;
 
-    QueueElement first, last;
 
+public class Queues<T> implements Iterable<T>{
+
+    QueueElement<T> first, last;
+    
     public Queues() {
         this.first = null;
         this.last = null;
     }
-
-    public void add(int x) {
-
-        QueueElement temp = new QueueElement(x);
+    
+    public void add(T x) {
+        QueueElement<T> temp = new QueueElement(x);
         if (first == null) {
             first = last = temp;
         } else {
             last.setNext(temp);
             last = temp;
         }
-
     }
-
+    
     public void delete() {
         if (first != null) {
             if (first.getNext() == null) {
                 last = null;
             }
-
             first = first.getNext();
         } else {
             System.out.println("kolejka is empty");
@@ -35,7 +35,7 @@ public class Queues {
 
     public void show() {
         if (first != null) {
-            QueueElement temp = first;
+            QueueElement<T> temp = first;
             while (temp != null) {
                 System.out.print(temp.getValue() + " ");
                 temp = temp.getNext();
@@ -59,8 +59,8 @@ public class Queues {
         return 0;
     }
 
-    public void copy(Queues Queue2) {
-        QueueElement temp = first;
+    public void copy(Queues<T> Queue2) {
+        QueueElement<T> temp = first;
         if (temp != null) {
             while (temp != null) {
                 Queue2.add(temp.getValue());
@@ -71,7 +71,7 @@ public class Queues {
         }
     }
 
-    public void merge(Queues queue2) {
+    public void merge(Queues<T> queue2) {
         if (first == null) {
             first = queue2.getFirst();
             last = queue2.getLast();
@@ -83,20 +83,67 @@ public class Queues {
         queue2.setFirst(null);
     }
 
-    public QueueElement getFirst() {
+    public QueueElement<T> getFirst() {
         return first;
     }
 
-    public QueueElement getLast() {
+    public QueueElement<T> getLast() {
         return last;
     }
 
-    public void setLast(QueueElement element) {
+    public void setLast(QueueElement<T> element) {
         last = element;
     }
 
-    public void setFirst(QueueElement element) {
+    public void setFirst(QueueElement<T> element) {
         first = element;
     }
+    
+    public void sort(Queues<T> queue){
+        int size = queue.countElement();
+        T [] tab = (T[])new Object[size];
+        Iterator<T> iterator = queue.iterator();
+        int i=0;
+        while(iterator.hasNext()){
+           tab[i]=iterator.next();
+           i++;
+        }
+        T pom;
+        for(int a=0;a<size;a++){
+           queue.delete();
+         for(int b=0;b<size-i-1;b++){ 
+           if(tab[b].equals(tab[b+1])){
+                pom = tab[b];
+                tab[b] = tab[b+1];
+                tab[b+1] = pom; 
+            }
+          }
+        }
+        for(int a=0;a<size;a++){
+         queue.add(tab[a]);
+        }
+    }
+    
+    @Override
+    public Iterator<T> iterator() {
+       return new IteratorQueue();
+    }
+    
+    private class IteratorQueue implements Iterator<T> {
 
+    private QueueElement<T> queue = first;
+
+    @Override
+    public boolean hasNext() {
+        return queue != null;
+    }
+
+    @Override
+    public T next() {
+        T obiekt = queue.getValue();
+        queue = queue.getNext();
+        return obiekt;
+    }
+
+}
 }

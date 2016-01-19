@@ -1,16 +1,21 @@
 package zadwlasne2;
 
-public class QueueElement {
+import java.util.Iterator;
 
-    private int value;
-    private QueueElement next;
 
-    public QueueElement(int element) {
+public class QueueElement<T> {
+
+    private T value;
+    private QueueElement<T> next;
+ 
+    
+    public QueueElement(T element) {
+
         value = element;
         next = null;
     }
 
-    public void setNext(QueueElement element) {
+    public void setNext(QueueElement<T> element) {
         next = element;
     }
 
@@ -18,8 +23,8 @@ public class QueueElement {
         return next;
     }
 
-    public int getValue() {
+    public T getValue() {
         return value;
     }
-
+    
 }
