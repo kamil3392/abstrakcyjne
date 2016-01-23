@@ -101,23 +101,23 @@ public class Queues<T> implements Iterable<T>{
         T [] tab = (T[])new Object[size];
         Iterator<T> iterator = queue.iterator();
         int i=0;
-        while(iterator.hasNext()){
-           tab[i]=iterator.next();
-           i++;
+        while (iterator.hasNext()) {
+            tab[i] = iterator.next();
+            i++;
         }
         T tmp;
-        for(int a=0;a<size;a++){
-           queue.delete();
-         for(int b=0;b<size-i-1;b++){ 
-           if(tab[b].equals(tab[b+1])){
-                tmp = tab[b];
-                tab[b] = tab[b+1];
-                tab[b+1] = tmp; 
+        for (int a=0;a<size;a++) {
+            queue.delete();
+            for (int b=0;b<size-i-1;b++) { 
+                if (tab[b].equals(tab[b+1])) {
+                    tmp = tab[b];
+                    tab[b] = tab[b+1];
+                    tab[b+1] = tmp; 
+                }  
             }
-          }
         }
         for(int a=0;a<size;a++){
-         queue.add(tab[a]);
+            queue.add(tab[a]);
         }
     }
     
@@ -128,7 +128,7 @@ public class Queues<T> implements Iterable<T>{
     
     QueueElement<T> first, last;
     
-    private class IteratorQueue implements Iterator<T> {
+private class IteratorQueue implements Iterator<T> {
 
     @Override
     public boolean hasNext() {
