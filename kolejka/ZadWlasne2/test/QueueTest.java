@@ -5,8 +5,6 @@ import zadwlasne2.Queues;
 
 public class QueueTest {
 
-    private Integer a1;
-
     @Test
     public void TestFirstLastElement() {
         Queues<Integer> a = new Queues();
@@ -95,5 +93,4 @@ public class QueueTest {
         i++;
         }
     }
-
 }

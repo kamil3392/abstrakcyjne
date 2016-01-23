@@ -2,11 +2,8 @@ package zadwlasne2;
 
 import java.util.Iterator;
 
-
 public class Queues<T> implements Iterable<T>{
-
-    QueueElement<T> first, last;
-    
+   
     public Queues() {
         this.first = null;
         this.last = null;
@@ -108,14 +105,14 @@ public class Queues<T> implements Iterable<T>{
            tab[i]=iterator.next();
            i++;
         }
-        T pom;
+        T tmp;
         for(int a=0;a<size;a++){
            queue.delete();
          for(int b=0;b<size-i-1;b++){ 
            if(tab[b].equals(tab[b+1])){
-                pom = tab[b];
+                tmp = tab[b];
                 tab[b] = tab[b+1];
-                tab[b+1] = pom; 
+                tab[b+1] = tmp; 
             }
           }
         }
@@ -126,12 +123,12 @@ public class Queues<T> implements Iterable<T>{
     
     @Override
     public Iterator<T> iterator() {
-       return new IteratorQueue();
+        return new IteratorQueue();
     }
     
+    QueueElement<T> first, last;
+    
     private class IteratorQueue implements Iterator<T> {
-
-    private QueueElement<T> queue = first;
 
     @Override
     public boolean hasNext() {
@@ -145,5 +142,7 @@ public class Queues<T> implements Iterable<T>{
         return obiekt;
     }
 
+    private QueueElement<T> queue = first;
+    
 }
 }
